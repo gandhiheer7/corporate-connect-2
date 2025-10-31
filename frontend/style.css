@@ -122,7 +122,14 @@ header .container {
   color: var(--text-white);
   font-weight: 600;
   font-size: 1.25rem;
-  margin-bottom: 1.5rem; /* Increased margin */
+  margin-bottom: 0.5rem; /* Make room for the description */
+  flex-grow: 0; /* Let the description push the button */
+}
+
+.pkg-description {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
   flex-grow: 1; /* This pushes the button to the bottom */
 }
 
