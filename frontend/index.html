@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Initiative Planner - v3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="#"><img src="images/logo.png" alt="HR Yaar Logo"></a>
+            </div>
+            <nav>
+                <a href="https://hryaar.com" class="back-link">← Back to Main Website</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="intro">
+            <div class="container">
+                <h1>Mindfulness & Leadership Programs</h1>
+                <p>Select from our curated packages to build a proposal for your team.</p>
+            </div>
+        </section>
+
+        <section class="package-grid">
+            <div class="container" id="package-container">
+                </div>
+        </section>
+
+        <section class="summary-section">
+            <div class="container">
+                <h3>Selected Initiatives</h3>
+                <div class="selected-items-container" id="selected-items">
+                    <p class="empty-message">No initiatives selected yet.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="submit-section">
+            <div class="container">
+                <button id="proposal-request-btn" class="submit-button" disabled>Send Me Proposal</button>
+                
+                <form id="proposal-form" class="proposal-form hidden">
+                    <h3>Provide Your Details</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="user-name">Name</label>
+                            <input type="text" id="user-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-designation">Designation</label>
+                            <input type="text" id="user-designation" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-company">Company</label>
+                            <input type="text" id="user-company" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-contact">Contact Number</label>
+                            <input type="tel" id="user-contact" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-email">Email ID</label>
+                            <input type="email" id="user-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-location">Location</label>
+                            <input type="text" id="user-location" required>
+                        </div>
+                    </div>
+                    <button type="submit" id="final-submit-btn" class="submit-button">Submit</button>
+                </form>
+
+                <div class="message-container" id="message-container">
+                    <div class="form-message" id="form-message"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <img 
+      id="pdf-header-image" 
+      src="images/pdf-header.png" 
+      alt="PDF Header" 
+      style="display:none;"
+    >
+
+    <script src="script.js"></script>
+</body>
+</html>

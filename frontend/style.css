@@ -1,0 +1,343 @@
+:root {
+  --bg-navy: #0f2a3f;
+  --surface-navy: #16354d;
+  --primary-gold: #e8c501;
+  --secondary-gold: #fcd34d;
+  --text-white: #ffffff;
+  --text-muted: #e2e8f0;
+  --success-green: #16a34a;
+  --error-coral: #e11d48;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-navy);
+  color: var(--text-white);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Header */
+header {
+  background-color: var(--surface-navy);
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 50px; 
+  width: auto;
+  display: block; 
+}
+
+.back-link,
+.back-link:visited {
+  color: var(--text-muted);
+  font-weight: 450;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover,
+.back-link:active {
+  color: var(--primary-gold);
+}
+
+/* Intro Section */
+.intro {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.intro h1 {
+  color: var(--primary-gold);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.intro p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* NEW: 6-Box Package Grid Styles */
+.package-grid {
+  padding: 2rem 0;
+}
+
+#package-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.package-card {
+  background-color: var(--surface-navy);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.package-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.package-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* This makes all cards the same height */
+}
+
+.package-card h4 {
+  color: var(--text-white);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem; /* Increased margin */
+  flex-grow: 1; /* This pushes the button to the bottom */
+}
+
+.add-btn {
+  width: 100%; /* Make the button full-width */
+  height: auto;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--primary-gold);
+  color: var(--bg-navy);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-btn:hover {
+  background-color: var(--secondary-gold);
+  transform: scale(1.02); /* More subtle hover */
+}
+
+.add-btn.added {
+  background-color: var(--success-green);
+  color: white;
+}
+/* --- END OF NEW STYLES --- */
+
+
+/* Summary Section */
+.summary-section {
+  padding: 2rem 0;
+  background-color: var(--surface-navy);
+  margin: 2rem 0;
+  border-radius: 12px;
+}
+
+.summary-section h3 {
+  color: var(--primary-gold);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.selected-items-container {
+  min-height: 60px;
+  margin-bottom: 1.5rem;
+}
+
+.empty-message {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 1rem;
+}
+
+.selected-item {
+  background-color: var(--bg-navy);
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected-item h4 {
+  color: var(--text-white);
+  font-weight: 500;
+}
+
+.selected-item .item-details {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.remove-btn {
+  background-color: var(--error-coral);
+  color: white;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Submit Section */
+.submit-section {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.submit-button {
+  background-color: var(--primary-gold);
+  color: var(--bg-navy);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: var(--secondary-gold);
+  transform: translateY(-2px);
+}
+
+.submit-button:disabled {
+  background-color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* New Proposal Form Styles */
+.proposal-form {
+  background-color: var(--surface-navy);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+  text-align: left;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.proposal-form h3 {
+  color: var(--primary-gold);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border: 2px solid var(--primary-gold);
+  border-radius: 6px;
+  background-color: var(--bg-navy);
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--secondary-gold);
+}
+
+.proposal-form .submit-button {
+  width: 100%;
+}
+
+
+.form-message {
+  display: none;
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 1.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-message.success {
+  background-color: var(--success-green);
+  color: white;
+  display: block;
+}
+
+.form-message.error {
+  background-color: var(--error-coral);
+  color: white;
+  display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  #package-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  #package-container {
+    grid-template-columns: 1fr;
+  }
+  .form-grid {
+      grid-template-columns: 1fr;
+  }
+}
