@@ -180,34 +180,35 @@ document.addEventListener("DOMContentLoaded", () => {
         doc.setFont("helvetica", "bold");
         doc.setFontSize(16);
         doc.setTextColor(22, 53, 77); // --surface-navy
-        doc.text("Corporate Initiative Proposal", 105, 50, { align: 'center' }); 
+        doc.text("EUNOIA", 105, 50, { align: 'center' }); 
         doc.setFontSize(12);
         doc.text(`Prepared for: ${formData.company}`, 105, 57, { align: 'center' }); 
 
         doc.setFont("helvetica", "bold");
         doc.setFontSize(14);
         doc.setTextColor(22, 53, 77);
-        doc.text("1. Client Details", 20, 75); 
+        doc.text("Client Details", 20, 75); 
         doc.setFont("helvetica", "normal");
         doc.setFontSize(11);
         doc.setTextColor(0, 0, 0);
-        doc.text(`Contact Person: ${formData.name}, ${formData.designation}`, 20, 83); 
-        doc.text(`Company: ${formData.company}`, 20, 89); 
-        doc.text(`Contact Email: ${formData.email}`, 20, 95); 
-        doc.text(`Contact Phone: ${formData.contact}`, 20, 101);
+        doc.text("To,", 20, 83);
+        doc.text(`${formData.name}`, 20, 89);
+        doc.text(`${formData.designation}`, 20, 95);
+        doc.text(`${formData.company}`, 20, 101);
+        doc.text(`${formData.contact}`, 20, 107);
         
         const hasCeoDinner = selectedItems.some(item => item.isCeoDinner === true);
-        let tripType = "One-day trip";
+        let tripType = "1 Day Stress Management & Mindfulness Retreat Program";
         let hotel = "Not Applicable";
         if (hasCeoDinner) {
-            tripType = "Overnight program";
+            tripType = "Stress Management & Mindfulness Retreat Program (Overnight Stay)";
             hotel = "Hotel Accommodation Included (TBD)";
         }
 
         doc.setFont("helvetica", "bold");
         doc.setFontSize(14);
         doc.setTextColor(22, 53, 77);
-        doc.text("2. Event Overview", 20, 115);
+        doc.text("Event Overview", 20, 115);
         doc.setFont("helvetica", "normal");
         doc.setFontSize(11);
         doc.setTextColor(0, 0, 0);
@@ -225,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
         doc.setFont("helvetica", "bold");
         doc.setFontSize(14);
         doc.setTextColor(22, 53, 77);
-        doc.text("3. Proposed Itinerary", 20, yPos);
+        doc.text("Proposed Itinerary", 20, yPos);
         yPos += 8;
         
         doc.setFont("helvetica", "bold");
