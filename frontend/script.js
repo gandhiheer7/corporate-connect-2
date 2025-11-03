@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // We need this line to access the jsPDF library
   const { jsPDF } = window.jspdf;
 
-  // --- MODIFIED: New 5-package data structure ---
+  // NEW: Data for the 5 packages
   const activities = [
     { id: "pkg1", name: "Forest Bathing", description: "A guided nature immersion that awakens the senses and centres attention.", isCeoDinner: false, img: "https://placehold.co/400x250/22c55e/white?text=Forest+Bathing" },
     { id: "pkg2", name: "The Power of Presence", description: "A short orientation on mindfulness as a leadership competency - exploring the connection between awareness, attention, and emotional agility.", isCeoDinner: false, img: "https://placehold.co/400x250/3b82f6/white?text=Art+Therapy" },
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: "pkg4", name: "Sound Therapy & Mindful Listening", description: "Immerse in live acoustic instruments and sound vibrations that harmonise internal rhythms.", isCeoDinner: false, img: "https://placehold.co/400x250/ec4899/white?text=Sound+Bath" },
     { id: "pkg5-ceo", name: "CEO / Director's Curated Dinner", description: "An exclusive, high-level networking and strategy dinner hosted in a premium setting.", isCeoDinner: true, img: "https://placehold.co/400x250/eab308/white?text=CEO+Dinner" },
   ];
-  // --- END OF MODIFICATION ---
 
   let selectedItems = [];
 
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       headerImg.dispatchEvent(new Event('load'));
   }
 
-  // MODIFIED: Render the new package cards with descriptions
+  // Render the 5 package cards
   function renderPackages() {
     packageContainer.innerHTML = activities.map(activity => `
       <div class="package-card">
@@ -114,11 +113,30 @@ document.addEventListener("DOMContentLoaded", () => {
     proposalForm.classList.remove("hidden");
     showMessage("", ""); 
   });
+
+  // --- NEW: Real-time validation for Contact Number ---
+  const contactInput = document.getElementById("user-contact");
+  contactInput.addEventListener("input", (e) => {
+    if (e.target.value.length >= 10) {
+      e.target.classList.remove("input-invalid");
+    } else {
+      e.target.classList.add("input-invalid");
+    }
+  });
+  // --- END OF NEW VALIDATION ---
   
   // MODIFIED: This function now uses jsPDF to manually build the PDF
   proposalForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const finalSubmitBtn = document.getElementById("final-submit-btn");
+
+    // --- NEW: Final validation check on submit ---
+    const contactValue = document.getElementById("user-contact").value;
+    if (contactValue.length < 10) {
+        showMessage("Please enter a valid 10-digit contact number.", "error");
+        return; // Stop the submission
+    }
+    // --- END OF NEW VALIDATION ---
 
     if (!window.jspdf) {
         console.error("jsPDF library is not loaded!");
@@ -136,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name: document.getElementById("user-name").value,
         designation: document.getElementById("user-designation").value,
         company: document.getElementById("user-company").value,
-        contact: document.getElementById("user-contact").value,
+        contact: contactValue, // Use the validated value
         email: document.getElementById("user-email").value,
         location: document.getElementById("user-location").value,
         initiatives: selectedItems,
@@ -172,7 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
         doc.text(`Contact Email: ${formData.email}`, 20, 95); 
         doc.text(`Contact Phone: ${formData.contact}`, 20, 101);
         
-        // MODIFIED: This logic is now based on your new rules
         const hasCeoDinner = selectedItems.some(item => item.isCeoDinner === true);
         let tripType = "One-day trip";
         let hotel = "Not Applicable";
@@ -180,7 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
             tripType = "Overnight program";
             hotel = "Hotel Accommodation Included (TBD)";
         }
-        // --- END OF MODIFICATION ---
 
         doc.setFont("helvetica", "bold");
         doc.setFontSize(14);
@@ -260,6 +276,8 @@ document.addEventListener("DOMContentLoaded", () => {
     proposalForm.reset();
     proposalForm.classList.add("hidden");
     proposalRequestBtn.classList.remove("hidden");
+    // NEW: Remove invalid class on reset
+    contactInput.classList.remove("input-invalid");
   }
 
   // Initial render of the new 6 packages

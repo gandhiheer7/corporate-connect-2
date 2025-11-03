@@ -304,6 +304,10 @@ header .container {
   border-color: var(--secondary-gold);
 }
 
+.form-group input.input-invalid {
+  border-color: var(--error-coral);
+}
+
 .proposal-form .submit-button {
   width: 100%;
 }
