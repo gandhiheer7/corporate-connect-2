@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showMessage("", ""); 
   });
 
-  // --- NEW: Real-time validation for Contact Number ---
+  // Real-time validation for Contact Number
   const contactInput = document.getElementById("user-contact");
   contactInput.addEventListener("input", (e) => {
     if (e.target.value.length >= 10) {
@@ -123,20 +123,18 @@ document.addEventListener("DOMContentLoaded", () => {
       e.target.classList.add("input-invalid");
     }
   });
-  // --- END OF NEW VALIDATION ---
   
-  // MODIFIED: This function now uses jsPDF to manually build the PDF
+  // This function now uses jsPDF to manually build the PDF
   proposalForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const finalSubmitBtn = document.getElementById("final-submit-btn");
 
-    // --- NEW: Final validation check on submit ---
+    // Final validation check on submit
     const contactValue = document.getElementById("user-contact").value;
     if (contactValue.length < 10) {
         showMessage("Please enter a valid 10-digit contact number.", "error");
         return; // Stop the submission
     }
-    // --- END OF NEW VALIDATION ---
 
     if (!window.jspdf) {
         console.error("jsPDF library is not loaded!");
@@ -276,11 +274,10 @@ document.addEventListener("DOMContentLoaded", () => {
     proposalForm.reset();
     proposalForm.classList.add("hidden");
     proposalRequestBtn.classList.remove("hidden");
-    // NEW: Remove invalid class on reset
     contactInput.classList.remove("input-invalid");
   }
 
-  // Initial render of the new 6 packages
+  // Initial render of the new 5 packages
   renderPackages();
   updateSummary();
 });

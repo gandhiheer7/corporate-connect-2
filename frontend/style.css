@@ -85,14 +85,18 @@ header .container {
   margin: 0 auto;
 }
 
-/* NEW: 6-Box Package Grid Styles */
+/* --- REMOVED MAIN-GRID, GRID-CONTAINER, CATEGORY-COLUMN --- */
+
+/* --- UPDATED: 6-Box Package Grid Styles --- */
 .package-grid {
   padding: 2rem 0;
 }
 
+/* MODIFIED: Switched from Grid to Flexbox */
 #package-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* This centers the last row */
   gap: 2rem;
 }
 
@@ -103,6 +107,9 @@ header .container {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  flex-basis: 350px; /* Set a base width for cards */
+  max-width: 400px; /* Set a max width */
+  flex-grow: 1;     /* Allow them to grow */
 }
 
 .package-card img {
@@ -126,6 +133,7 @@ header .container {
   flex-grow: 0; /* Let the description push the button */
 }
 
+/* NEW: Style for the package description */
 .pkg-description {
   color: var(--text-muted);
   font-size: 0.9rem;
@@ -133,33 +141,46 @@ header .container {
   flex-grow: 1; /* This pushes the button to the bottom */
 }
 
+
+/* MODIFIED: Styling for the '+' button */
 .add-btn {
-  width: 100%; /* Make the button full-width */
+  width: 100%;
   height: auto;
   border-radius: 6px;
   border: none;
   background-color: var(--primary-gold);
   color: var(--bg-navy);
-  font-size: 1rem;
-  font-weight: 600;
+  /* Make the '+' thinner and larger */
+  font-size: 1.5rem;
+  font-weight: 300; 
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 0.75rem;
+  padding: 0.5rem; /* Adjust padding */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.add-btn:hover {
-  background-color: var(--secondary-gold);
-  transform: scale(1.02); /* More subtle hover */
-}
-
+/* NEW: Styles for the button *after* it's added */
 .add-btn.added {
   background-color: var(--success-green);
   color: white;
+  /* Return to normal text style for "✓ Added" */
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem;
 }
-/* --- END OF NEW STYLES --- */
+
+.add-btn:hover {
+  background-color: var(--secondary-gold);
+  transform: scale(1.02);
+}
+
+.add-btn.added:hover {
+    background-color: #15803d; /* Darker green on hover */
+    transform: none;
+}
+/* --- END OF MODIFICATIONS --- */
 
 
 /* Summary Section */
@@ -299,13 +320,14 @@ header .container {
   font-size: 1rem;
 }
 
+/* NEW: Style for invalid contact input */
+.form-group input.input-invalid {
+  border-color: var(--error-coral);
+}
+
 .form-group input:focus {
   outline: none;
   border-color: var(--secondary-gold);
-}
-
-.form-group input.input-invalid {
-  border-color: var(--error-coral);
 }
 
 .proposal-form .submit-button {
