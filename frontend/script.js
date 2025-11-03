@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // NEW: Data for the 5 packages
   const activities = [
-    { id: "pkg1", name: "Forest Bathing", description: "A guided nature immersion that awakens the senses and centres attention.", isCeoDinner: false, img: "https://placehold.co/400x250/22c55e/white?text=Forest+Bathing" },
-    { id: "pkg2", name: "The Power of Presence", description: "A short orientation on mindfulness as a leadership competency - exploring the connection between awareness, attention, and emotional agility.", isCeoDinner: false, img: "https://placehold.co/400x250/3b82f6/white?text=Art+Therapy" },
-    { id: "pkg3", name: "Mindfulness through Art Therapy", description: "An expressive arts session that invites reflection and creativity through colour, movement, and form.", isCeoDinner: false, img: "https://placehold.co/400x250/8b5cf6/white?text=Mindful+Eating" },
-    { id: "pkg4", name: "Sound Therapy & Mindful Listening", description: "Immerse in live acoustic instruments and sound vibrations that harmonise internal rhythms.", isCeoDinner: false, img: "https://placehold.co/400x250/ec4899/white?text=Sound+Bath" },
-    { id: "pkg5-ceo", name: "CEO / Director's Curated Dinner", description: "An exclusive, high-level networking and strategy dinner hosted in a premium setting.", isCeoDinner: true, img: "https://placehold.co/400x250/eab308/white?text=CEO+Dinner" },
+    { id: "pkg1", name: "Forest Bathing", description: "A guided nature immersion that awakens the senses and centres attention.", isCeoDinner: false, img: "./images/forest-bathing.png" },
+    { id: "pkg2", name: "The Power of Presence", description: "A short orientation on mindfulness as a leadership competency - exploring the connection between awareness, attention, and emotional agility.", isCeoDinner: false, img: "./images/art-therapy.png" },
+    { id: "pkg3", name: "Mindfulness through Art Therapy", description: "An expressive arts session that invites reflection and creativity through colour, movement, and form.", isCeoDinner: false, img: "./images/mindful-eating.png" },
+    { id: "pkg4", name: "Sound Therapy & Mindful Listening", description: "Immerse in live acoustic instruments and sound vibrations that harmonise internal rhythms.", isCeoDinner: false, img: "./images/sound-bath.png" },
+    { id: "pkg5-ceo", name: "CEO / Director's Curated Dinner", description: "An exclusive, high-level networking and strategy dinner hosted in a premium setting.", isCeoDinner: true, img: "./images/ceo-dinner.png" },
   ];
 
   let selectedItems = [];
