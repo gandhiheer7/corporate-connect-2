@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // We need this line to access the jsPDF library
-  const { jsPDF } = window.jspdf;
+  //const { jsPDF } = window.jspdf;
 
   // NEW: Data for the 5 packages
   const activities = [
@@ -28,21 +28,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const proposalRequestBtn = document.getElementById("proposal-request-btn");
   const proposalForm = document.getElementById("proposal-form");
   const formMessage = document.getElementById("form-message");
-  const headerImg = document.getElementById('pdf-header-image');
-  let headerImgData = null;
+  //const headerImg = document.getElementById('pdf-header-image');
+  //let headerImgData = null;
 
   // Pre-load the image into a format jsPDF can use
-  headerImg.addEventListener('load', () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = headerImg.naturalWidth;
-      canvas.height = headerImg.naturalHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(headerImg, 0, 0);
-      headerImgData = canvas.toDataURL('image/png');
-  });
-  if (headerImg.complete && headerImg.naturalWidth > 0) {
-      headerImg.dispatchEvent(new Event('load'));
-  }
+  // headerImg.addEventListener('load', () => {
+  //     const canvas = document.createElement('canvas');
+  //     canvas.width = headerImg.naturalWidth;
+  //     canvas.height = headerImg.naturalHeight;
+  //     const ctx = canvas.getContext('2d');
+  //     ctx.drawImage(headerImg, 0, 0);
+  //     headerImgData = canvas.toDataURL('image/png');
+  // });
+  // if (headerImg.complete && headerImg.naturalWidth > 0) {
+  //     headerImg.dispatchEvent(new Event('load'));
+  // }
 
   // Render the 5 package cards
   function renderPackages() {
@@ -134,7 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   
   // This function now uses jsPDF to manually build the PDF
-  proposalForm.addEventListener("submit", (e) => {
+  // REPLACED Event Listener for the form
+  proposalForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const finalSubmitBtn = document.getElementById("final-submit-btn");
 
@@ -145,128 +146,50 @@ document.addEventListener("DOMContentLoaded", () => {
         return; // Stop the submission
     }
 
-    if (!window.jspdf) {
-        console.error("jsPDF library is not loaded!");
-        showMessage("PDF library is not ready. Please refresh and try again.", "error");
-        return;
-    }
-    const { jsPDF } = window.jspdf;
-    
-    if (!headerImgData) {
-        showMessage("Page assets are still loading. Please try again in a moment.", "error");
-        return;
-    }
-
+    // Collect the form data
     const formData = {
         name: document.getElementById("user-name").value,
         designation: document.getElementById("user-designation").value,
         company: document.getElementById("user-company").value,
-        contact: contactValue, // Use the validated value
+        contact: contactValue,
         email: document.getElementById("user-email").value,
         location: document.getElementById("user-location").value,
         initiatives: selectedItems,
     };
-    
+
     finalSubmitBtn.disabled = true;
-    finalSubmitBtn.textContent = 'Generating PDF...';
+    finalSubmitBtn.textContent = 'Sending...';
+    showMessage("", ""); // Clear previous messages
 
-    // --- START OF jsPDF LOGIC ---
+    // --- START OF NEW FETCH LOGIC ---
     try {
-        const doc = new jsPDF();
-        
-        const imgWidth = 210;
-        const imgHeight = 34.5; 
-        doc.addImage(headerImgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      const response = await fetch('/api/send-proposal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(16);
-        doc.setTextColor(22, 53, 77); // --surface-navy
-        doc.text("EUNOIA", 105, 50, { align: 'center' }); 
-        doc.setFontSize(12);
-        doc.text(`Prepared for: ${formData.company}`, 105, 57, { align: 'center' }); 
+      const result = await response.json();
 
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(14);
-        doc.setTextColor(22, 53, 77);
-        doc.text("Client Details", 20, 75); 
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(11);
-        doc.setTextColor(0, 0, 0);
-        doc.text("To,", 20, 83);
-        doc.text(`${formData.name}`, 20, 89);
-        doc.text(`${formData.designation}`, 20, 95);
-        doc.text(`${formData.company}`, 20, 101);
-        doc.text(`${formData.contact}`, 20, 107);
-        
-        const hasCeoDinner = selectedItems.some(item => item.isCeoDinner === true);
-        let tripType = "1 Day Stress Management & Mindfulness Retreat Program";
-        let hotel = "Not Applicable";
-        if (hasCeoDinner) {
-            tripType = "Stress Management & Mindfulness Retreat Program (Overnight Stay)";
-            hotel = "Hotel Accommodation Included (TBD)";
-        }
-
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(14);
-        doc.setTextColor(22, 53, 77);
-        doc.text("Event Overview", 20, 115);
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(11);
-        doc.setTextColor(0, 0, 0);
-        doc.text(`Trip Type: ${tripType}`, 20, 123);
-        doc.text(`Preferred Date: TBD (To be discussed)`, 20, 129);
-        doc.text(`Event Timings: TBD (To be discussed)`, 20, 135);
-        
-        let yPos = 135; 
-        if (hotel !== 'Not Applicable') {
-            yPos += 6;
-            doc.text(`Accommodation: ${hotel}`, 20, yPos);
-        }
-
-        yPos += 14;
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(14);
-        doc.setTextColor(22, 53, 77);
-        doc.text("Proposed Itinerary", 20, yPos);
-        yPos += 8;
-        
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(11);
-        doc.text("Breakfast (Included)", 25, yPos);
-        yPos += 7;
-
-        doc.setFont("helvetica", "normal");
-        formData.initiatives.forEach(item => {
-            if (yPos > 280) { 
-                doc.addPage();
-                yPos = 20; 
-            }
-            doc.text(item.name, 25, yPos);
-            yPos += 7; 
-        });
-        
-        if (yPos > 266) { 
-            doc.addPage();
-            yPos = 20;
-        }
-        doc.setFont("helvetica", "bold");
-        doc.text("Lunch (Included)", 25, yPos);
-        yPos += 7;
-        doc.text("Dinner (Included)", 25, yPos);
-
-        doc.save('HR-Yaar-Proposal.pdf');
-
-        showMessage("Thank you! Your proposal has been downloaded successfully.", "success");
+      if (response.ok) {
+        // Success!
+        showMessage("Thank you! Your proposal has been emailed to you successfully.", "success");
         resetForm();
+      } else {
+        // Error from the server
+        throw new Error(result.message || "An unknown error occurred.");
+      }
 
     } catch (err) {
-        console.error("PDF Generation Error:", err);
-        showMessage("Sorry, there was an error generating your PDF. Please try again.", "error");
+        console.error("Submission Error:", err);
+        showMessage(`Sorry, there was an error: ${err.message}`, "error");
     } finally {
         finalSubmitBtn.disabled = false;
         finalSubmitBtn.textContent = 'Submit';
     }
-    // --- END OF MODIFIED PDF LOGIC ---
+  // --- END OF NEW FETCH LOGIC ---
   });
 
   function showMessage(text, type) {

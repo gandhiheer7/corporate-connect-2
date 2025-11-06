@@ -1,0 +1,8 @@
+# Dependency directories
+node_modules/
+
+# Vercel
+.vercel/
+
+# Local environment variables
+.env

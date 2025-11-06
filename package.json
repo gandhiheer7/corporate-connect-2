@@ -1,0 +1,12 @@
+{
+  "name": "eunoia-proposal-sender",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo 'No start script needed for static site'"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.7",
+    "jspdf": "^2.5.1" 
+  }
+}
