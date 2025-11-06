@@ -1,5 +1,7 @@
 const { jsPDF } = require("jspdf");
 const nodemailer = require("nodemailer");
+const fs = require('fs'); 
+const path = require('path');
 
 // --- NODEMAILER CONFIGURATION ---
 // This is where you configure your email service (e.g., SendGrid, Gmail)
@@ -27,10 +29,18 @@ export default async function handler(req, res) {
   try {
     // --- 1. GENERATE PDF ON THE SERVER ---
     const doc = new jsPDF();
+    
+    // --- ADD THE HEADER IMAGE ---
+    const imagePath = path.join(process.cwd(), 'images', 'pdf-header.png');
+    const headerImgData = fs.readFileSync(imagePath);
+    const imgWidth = 210; // Full A4 page width
+    const imgHeight = 34.5; // The height of your header
+    doc.addImage(headerImgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    // -----------------------------
 
-    // NOTE: We cannot use the local "pdf-header-image" here.
-    // For simplicity, I've removed it.
-
+    // --- ADD PDF CONTENT (BELOW THE IMAGE) ---
+    // Your existing Y-positions (50, 57, 75, etc.) are already correct
+    // and will place the text below the 34.5mm tall header.
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
     doc.setTextColor(22, 53, 77);
