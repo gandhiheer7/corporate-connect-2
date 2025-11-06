@@ -112,7 +112,7 @@ export default async function handler(req, res) {
 
     // --- 2. SEND EMAIL 1 (To the User) ---
     await transporter.sendMail({
-      from: `"EUNOIA" <${process.env.EMAIL_USER}>`, // Your "from" address
+      from: `"EUNOIA" <${process.env.VERIFIED_SENDER_EMAIL}>`, // Your "from" address
       to: formData.email, // The user's email
       subject: "Your Custom EUNOIA Proposal is Here!",
       html: `
@@ -134,7 +134,7 @@ export default async function handler(req, res) {
 
     // --- 3. SEND EMAIL 2 (To You/Admin) ---
     await transporter.sendMail({
-      from: `"New Proposal Bot" <${process.env.EMAIL_USER}>`,
+      from: `"New Proposal Bot" <${process.env.VERIFIED_SENDER_EMAIL}>`,
       to: process.env.MY_EMAIL, // **YOUR** email address
       subject: `New Proposal Request from: ${formData.company}`,
       html: `
